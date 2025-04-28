@@ -1,4 +1,4 @@
-# Crusogo
+# SwiftCal
 
 A Go-based calendar and email management system.
 
