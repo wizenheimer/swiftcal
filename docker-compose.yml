@@ -1,0 +1,61 @@
+services:
+  # Hot reload development service
+  app-dev:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    ports:
+      - "8081:8080"
+    environment:
+      - ENVIRONMENT=development
+      - DATABASE_URL=postgres://swiftcal:password@postgres:5432/swiftcal?sslmode=disable
+    env_file:
+      - .env
+    depends_on:
+      postgres:
+        condition: service_healthy
+    volumes:
+      - .:/app
+      - /app/bin
+      - go-mod-cache:/go/pkg/mod
+    profiles: ["dev"]
+    restart: unless-stopped
+
+  postgres:
+    image: postgres:15-alpine
+    environment:
+      POSTGRES_DB: swiftcal
+      POSTGRES_USER: swiftcal
+      POSTGRES_PASSWORD: password
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./scripts/init.sql:/docker-entrypoint-initdb.d/init.sql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U swiftcal"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Database migrations
+  migrate:
+    image: migrate/migrate
+    profiles: ["migration"]
+    volumes:
+      - ./internal/database/migrations:/migrations
+    command:
+      [
+        "-path",
+        "/migrations",
+        "-database",
+        "postgres://swiftcal:password@postgres:5432/swiftcal?sslmode=disable",
+        "up",
+      ]
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+volumes:
+  postgres_data:
+  go-mod-cache:
