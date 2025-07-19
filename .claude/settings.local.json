@@ -1,0 +1,16 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(rg:*)",
+      "Bash(go get:*)",
+      "Bash(go build:*)",
+      "Bash(go run:*)",
+      "Bash(rm:*)",
+      "Bash(make:*)",
+      "Bash(docker-compose up:*)",
+      "Bash(go vet:*)",
+      "Bash(go mod:*)"
+    ],
+    "deny": []
+  }
+}
