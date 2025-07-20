@@ -13,7 +13,15 @@ RESET := \033[0m
 
 # Default target
 help:
-	@echo "$(BOLD)$(CYAN)swiftcal Development Environment$(RESET)"
+	@echo "$(BOLD)$(CYAN)"
+	@echo "███████╗██╗    ██╗██╗███████╗████████╗ ██████╗ █████╗ ██╗     "
+	@echo "██╔════╝██║    ██║██║██╔════╝╚══██╔══╝██╔════╝██╔══██╗██║     "
+	@echo "███████╗██║ █╗ ██║██║███████╗   ██║   ██║     ███████║██║     "
+	@echo "╚════██║██║███╗██║██║██║        ██║   ██║     ██╔══██║██║     "
+	@echo "███████║╚███╔███╔╝██║██║        ██║   ╚██████╗██║  ██║███████╗"
+	@echo "╚══════╝ ╚══╝╚══╝ ╚═╝╚═╝        ╚═╝    ╚═════╝╚═╝  ╚═╝╚══════╝"
+	@echo "$(RESET)"
+	@echo "$(BOLD)$(CYAN)Development Environment$(RESET)"
 	@echo ""
 	@echo "$(BOLD)Available targets:$(RESET)"
 	@echo "  $(GREEN)up$(RESET)            Start development with hot reload"
